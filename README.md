@@ -71,11 +71,11 @@ Id CommandLine
 68 cd Test.java                                                                                                                                                        
 69 cd java                                                                                                                                                             
 70 cd Test.java                                                                                                                                                        
-71 cd Test1.java                                                                                                                                                       
-72 git add Test1.java                                                                                                                                                  
+71 cd TestClass.java                                                                                                                                                       
+72 git add TestClassClass.java                                                                                                                                                  
 73 git commit -m "Adding increase testability of test class"                                                                                                           
 74 git push -u origin ft/setup                                                                                                                                         
-75 git add Test1.java                                                                                                                                                  
+75 git add TestClassClass.java                                                                                                                                                  
 76 git commit -m "Adding increase testability of test class"                                                                                                           
 77 git switch main                                                                                                                                                     
 78 git stash                                                                                                                                                           
