@@ -11,7 +11,7 @@ public class SortFunctionality {
         Page page= browser.newPage();
         page.navigate("https://practicesoftwaretesting.com/");
         page.locator("[data-test='sort']").selectOption("name,asc");
-       // page.locator("[data-test='product-name']")
+       // //page.locator("[data-test='product-name']")
         Page page1= context.newPage();
                 page1.navigate("https://practicesoftwaretesting.com/");
                 page1.locator("[data-test='sort']").selectOption("name,asc");
