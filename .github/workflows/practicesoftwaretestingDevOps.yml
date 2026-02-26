@@ -2,11 +2,11 @@ name: practicesoftwaretestingDevOps
 
 on:
   push:
-    branches: [ main,dev ]
+    branches: [ main,dev,ft/pipeline ]
   pull_request:
-    branches: [ main,dev ]
+    branches: [ main,dev,ft/pipeline ]
   merge_group:
-    branches: [main,dev]  
+    branches: [main,dev,ft/pipeline]  
 
 jobs:
   build:
