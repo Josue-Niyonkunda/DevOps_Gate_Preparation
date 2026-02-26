@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sort.SortFunctionality;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +27,13 @@ public class TestClass extends GuiCalculator {
 
     @Test
     void sortingTest() {
-        sortFunctionality.testSort();
+        sortFunctionality.testSort("name,asc");
+        sortFunctionality.testSort("name,desc");
+        sortFunctionality.testSort("price,desc");
+        sortFunctionality.testSort("price,asc");
+        sortFunctionality.testSort("co2_rating,asc");
+        sortFunctionality.testSort("co2_rating,desc");
+
     }
 
 
