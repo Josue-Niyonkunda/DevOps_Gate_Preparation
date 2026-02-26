@@ -14,6 +14,7 @@ public class SortFunctionality {
                Page page = context.newPage();
                page.navigate("https://practicesoftwaretesting.com/");
                page.selectOption("select",container);
+               page.waitForTimeout(2000);
                page.waitForSelector("[data-test='product-name']");
                List<String> names = page.locator("[data-test='product-name']").allTextContents();
                List<String> sorted = new ArrayList<>(names);
@@ -21,7 +22,7 @@ public class SortFunctionality {
                System.out.println(names);
                System.out.println(sorted);
 
-               //assertEquals(sorted, names);
+               assertEquals(sorted, names);
                page.close();
                context.close();
                browser.close();
