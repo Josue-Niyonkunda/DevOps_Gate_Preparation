@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class SortFunctionality {
            public void testSort( String container){
         Playwright playwright=Playwright.create();
-        Browser browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Browser browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
         BrowserContext context=browser.newContext();
                Page page = context.newPage();
                page.navigate("https://practicesoftwaretesting.com/");
