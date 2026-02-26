@@ -32,7 +32,7 @@ public class TestClass extends GuiCalculator {
 //        sortFunctionality.testSort("price,desc");
 //        sortFunctionality.testSort("price,asc");
 //        sortFunctionality.testSort("co2_rating,asc");
-//        sortFunctionality.testSort("co2_rating,desc");
+         // sortFunctionality.testSort("co2_rating,desc");
 
     }
 
