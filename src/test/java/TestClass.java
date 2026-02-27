@@ -28,12 +28,6 @@ public class TestClass extends GuiCalculator {
     @Test
     void sortingTest() {
         sortFunctionality.testSort("name,asc");
-//        sortFunctionality.testSort("name,desc");
-//        sortFunctionality.testSort("price,desc");
-//        sortFunctionality.testSort("price,asc");
-//        sortFunctionality.testSort("co2_rating,asc");
-         // sortFunctionality.testSort("co2_rating,desc");
-
     }
 
 
