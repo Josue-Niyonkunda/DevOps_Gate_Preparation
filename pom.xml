@@ -45,6 +45,14 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>SortFunctionality</mainClass>
+                </configuration>
+            </plugin>
 
             <!-- Surefire for JUnit 5 -->
             <plugin>
