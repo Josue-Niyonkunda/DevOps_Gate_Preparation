@@ -2,29 +2,49 @@ name: practicesoftwaretestingDevOps
 
 on:
   push:
-    branches: [ main,dev ]
+    branches:
+      - '**'   # run on ALL branches
   pull_request:
-    branches: [ main,dev ]
-  merge_group:
-    branches: [main,dev]  
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   build:
-    name: Build Maven Project
+    name: Build and Test Maven Project
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Build JAR
-        run: mvn clean test
-        
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
-      
+      - name: Build and Test
+        run: mvn clean test
+
+  auto-create-pr:
+    name: Auto Create Pull Request
+    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          base: main
+          title: "Auto PR from ${{ github.ref_name }}"
+          body: "This PR was automatically created by GitHub Actions."
