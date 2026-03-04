@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    name: Build Maven Project
+    name: Build and Test Maven Project
     runs-on: windows-latest
 
     steps:
@@ -44,9 +44,6 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-
-      - name: Install Playwright browsers via Maven
-        run: mvn exec:java
 
       - name: Build and Test
         run: mvn clean test
