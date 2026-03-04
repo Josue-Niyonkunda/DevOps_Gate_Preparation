@@ -1,0 +1,48 @@
+trigger:
+- main
+- ft/pipeline
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  MAVEN_OPTS: '-Xmx1024m'
+
+jobs:
+- job: Build
+  displayName: Build & Test Maven Project
+  steps:
+    # Checkout the repository
+    - checkout: self
+
+    # Set up Java 17
+    - task: UseJavaVersion@1
+      inputs:
+        versionSpec: '17'
+        jdkArchitectureOption: 'x64'
+      displayName: 'Set up JDK 17'
+
+    # Cache Maven dependencies
+    - task: Cache@2
+      inputs:
+        key: 'maven | "$(Agent.OS)" | **/pom.xml'
+        path: $(MAVEN_OPTS)
+        cacheHitVar: MAVEN_CACHE_HIT
+      displayName: 'Cache Maven Dependencies'
+
+    # Build and run Maven tests
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean test'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      displayName: 'Build and Test with Maven'
+
+    # Playwright preparation (optional)
+    - script: |
+        echo "Playwright browsers will be installed automatically during tests"
+      displayName: 'Prepare Playwright'
+
+# Optional: Auto PR functionality is not native in Azure Pipelines
+# You would use Azure DevOps REST API or a pipeline task to create a PR
