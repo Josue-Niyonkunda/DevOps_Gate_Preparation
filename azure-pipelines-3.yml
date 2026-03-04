@@ -20,14 +20,12 @@ steps:
   - checkout: self
     clean: true
 
-  # Install JDK 17 (Preinstalled on Microsoft hosted agent)
   - task: JavaToolInstaller@0
     inputs:
       versionSpec: '17'
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
 
-  # Cache Maven dependencies
   - task: Cache@2
     inputs:
       key: 'maven | "$(Agent.OS)" | **/pom.xml'
@@ -36,6 +34,23 @@ steps:
       path: $(MAVEN_CACHE_FOLDER)
     displayName: Cache Maven Dependencies
 
-  # Build and run tests
-  - script: mvn -B clean test
-    displayName: Build and Test Maven Project
+  - script: mvn -B clean package
+    displayName: Build Maven Project
+
+  #  Archive target folder
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'target'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+      replaceExistingArchive: true
+    displayName: Archive Build Output
+
+  #  Publish Artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: Publish Artifact
