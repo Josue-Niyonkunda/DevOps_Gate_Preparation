@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:
+      - main
+      - ft/pipeline
+
+pr:
+  branches:
+    include:
+      - main
+      - ft/pipeline
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  MAVEN_CACHE_FOLDER: $(USERPROFILE)\.m2\repository
+
+steps:
+  - checkout: self
+    clean: true
+
+  # Install JDK 17 (Preinstalled on Microsoft hosted agent)
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '17'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  # Cache Maven dependencies
+  - task: Cache@2
+    inputs:
+      key: 'maven | "$(Agent.OS)" | **/pom.xml'
+      restoreKeys: |
+        maven | "$(Agent.OS)"
+      path: $(MAVEN_CACHE_FOLDER)
+    displayName: Cache Maven Dependencies
+
+  # Build and run tests
+  - script: mvn -B clean test
+    displayName: Build and Test Maven Project
