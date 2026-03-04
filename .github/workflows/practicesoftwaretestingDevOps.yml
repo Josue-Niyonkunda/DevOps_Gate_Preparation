@@ -45,10 +45,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      - name: Install Playwright browsers via Java
-        run: |
-          mvn dependency:resolve
-          mvn exec:java -Dexec.mainClass="your.package.InstallBrowsers"
+      - name: Install Playwright browsers via Maven
+        run: mvn exec:java
 
       - name: Build and Test
         run: mvn clean test
